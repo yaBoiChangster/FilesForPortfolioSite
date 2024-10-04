@@ -42,11 +42,11 @@
         }
 
         #personamap{
-            align-self: center;
+            align-content:flex-start;
             position:absolute;
-            padding-bottom: 1%;
-            max-width:100%;
-            object-fit: contain;
+            height:auto;
+            max-width:120%;
+            object-fit:contain;
             z-index:0;
         }
 
@@ -61,13 +61,21 @@
             color: black;
         }
 
-        #name{
-            background-image: url('pmap.png');
-            padding-bottom: 1%;
+        .name{
+            background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("pmap.png");
+            height: 50%;
+
+            /* Position and center the image to scale nicely on all screens */
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            position: relative;
         }
 
-        #content{
-            position:absolute;
+        .content{
+            background-color: whitesmoke;
+            
+
         }
 
         @keyframes inAnimation {
