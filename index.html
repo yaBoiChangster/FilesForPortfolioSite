@@ -9,36 +9,65 @@
         <style>
         /* TODO: Fill in any necessary CSS styles here */
         #centerName{
+            position:relative;
             text-align: center;
             padding-top: 5%;
             padding-bottom: 3%;
             animation: inAnimation ease 3s;
             animation-iteration-count: 1;
             animation-fill-mode: forwards;
+            z-index:1;
         }
 
         #subtitle{
             text-align: center;
+            position:relative;
             padding-bottom: 5%;
             font-style: italic;
             animation: inAnimation ease 3s;
             animation-iteration-count: 1;
             animation-fill-mode: forwards;
+            z-index:1;
         }
 
         #welcome{
             text-align: center;
+            position:relative;
             padding-bottom: 5%;
             font-style: italic;
             animation: inAnimation ease 5s;
             animation-iteration-count: 1;
             animation-fill-mode: forwards;
+            z-index:1;
+        }
+
+        #personamap{
+            align-self: center;
+            position:absolute;
+            padding-bottom: 1%;
+            max-width:100%;
+            object-fit: contain;
+            z-index:0;
         }
 
         .heading{
             text-align: center;
             padding-bottom: 2%;
             padding-top:3%;
+        }
+
+        mark {
+            background-color: white;
+            color: black;
+        }
+
+        #name{
+            background-image: url('pmap.png');
+            padding-bottom: 1%;
+        }
+
+        #content{
+            position:absolute;
         }
 
         @keyframes inAnimation {
@@ -84,9 +113,12 @@
 
     <!--Name and Subtitle-->
     <div class="name">
-        <h1 id="centerName">Sean Chang</h1>
-        <h5 id="subtitle">GIS Analyst and Map Designer</h5>
-        <h5 id = "welcome">Welcome and thank you for taking time to look over my portfolio!</h5>
+        <h1 id="centerName"><mark><b>Sean Chang</b></mark></h1>
+        <h5 id="subtitle"><mark>GIS Analyst and Map Designer</mark></h5>
+        <h5 id = "welcome"><mark>Welcome and thank you for taking time to look over my portfolio!</mark></h5>
+    </div>
+
+    <div class="content">
         <hr style="width:75%;text-align:center;margin-left:12.5%">
         <h3 class="heading">About Showcase Contact</h3>
     </div>
