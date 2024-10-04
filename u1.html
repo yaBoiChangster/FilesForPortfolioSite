@@ -1,0 +1,233 @@
+<!--*****************************************************
+
+GEOG 414: Programming for Geospatial Data Science II
+Unit 1 Assignment
+
+This assignment asks you to complete five short warm-up JavaScript programming exercises, and then two more challenging exercises that involve both (1) creating a user interface with HTML code and (2) writing JavaScript code that ties logic to the interface.
+
+Add your work directly to this document, and once complete, submit to the course website for grading.
+
+*****************************************************-->
+
+<html>
+<!-- Add HTML head that loads Bootstrap CSS and JS -->
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Unit 1 Assignment Sean Chang</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  </head>
+<!-- Add HTML body containing two-column Bootstrap layout -->
+<body>
+      <!-- NAVBAR -->
+      <nav class="navbar navbar-expand-lg bg-light">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">SC</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="yaboichangster.github.io/index.html">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="yaboichangster.github.io/geog413.html">GEOG 413 Landing Page</a>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Assignments
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" href="yaboichangster.github.io/u1.html">A1: Guessing Game</a></li>
+                  <li><a class="dropdown-item" href="yaboichangster.github.io/u21.html">A2-1: Taiwan Population Choropleth Map</a></li>
+                  <li><a class="dropdown-item" href="yaboichangster.github.io/u22.html">A2-2: Taiwan Stations Symbol Map</a></li>
+                  <li><a class="dropdown-item" href="yaboichangster.github.io/u3.html">A3: 2020 US Election</a></li>
+                  <li><a class="dropdown-item" href="yaboichangster.github.io/p4.html">P4: California SVG</a></li>
+                  <li><a class="dropdown-item" href="yaboichangster.github.io/u4.html">A4: World Income Dashboard</a></li>
+                  <li><a class="dropdown-item" href="yaboichangster.github.io/u5.html">A5: 2024 Taiwan Election</a></li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <!-- This is where our user interface will go -->
+    <div class="container text-center">
+        <div class="row align-items-start">
+          <div class="col">
+            <h4> GEOG 414 Unit 1 Assignment Sean Chang </h4>
+            <form>
+                <!-- Column 1: distance calculator -->
+                <h4> Distance Calculator </h4>
+                <p> Find the distance between two lat/lon points</p>
+                <div class="mb-3">
+                  <label for="lat1textbox" class="form-label">First Latitude</label>
+                  <input type="text" class="form-control" id="lat1textbox" aria-describedby="lat1help">
+                  <div id="number1help" class="form-text">Enter the latitude of the first location</div>
+                </div>
+                <div class="mb-3">
+                    <label for="lon1textbox" class="form-label">First Longitude</label>
+                    <input type="text" class="form-control" id="lon1textbox" aria-describedby="lon1help">
+                    <div id="lon1help" class="form-text">Enter the longitude of the first location</div>
+                </div>
+                <div class="mb-3">
+                    <label for="lat2textbox" class="form-label">Second Latitude</label>
+                    <input type="text" class="form-control" id="lat2textbox" aria-describedby="lat2help">
+                    <div id="lat2help" class="form-text">Enter the latitude of the second location</div>
+                </div>
+                <div class="mb-3">
+                    <label for="lon2textbox" class="form-label">Second Longitude</label>
+                    <input type="text" class="form-control" id="lon2textbox" aria-describedby="lon2help">
+                    <div id="lon2help" class="form-text">Enter the longitude of the second location</div>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="unitRadio" id="radioKM" checked>
+                    <label class="form-check-label" for="radioKM">
+                      Output in Kilometers
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="unitRadio" id="radioMI">
+                    <label class="form-check-label" for="radioMI">
+                      Output in Miles
+                    </label>
+                </div>
+            </form>
+            <button type="button" class="btn btn-primary" onclick="challenge1()">Calculate Distance</button>
+            <p><div id="result"> </div></p>
+          </div>
+
+          <div class="col">
+          <!-- Column 2: guessing game -->
+            <h4> Number Guessing Game </h4>
+            <p> Guess a number between 0 and 100. </p>
+            <form>
+                <div class="mb-3">
+                    <label for="guesstextbox" class="form-label">Guess</label>
+                    <input type="text" class="form-control" id="guesstextbox" aria-describedby="guesshelp">
+                    <div id="guesshelp" class="form-text">Input your guess here.</div>
+                  </div>
+            </form>
+            <button type="button" class="btn btn-primary" onclick="challenge2()">Complete Round</button>
+            <p><div id="result2"> </div></p>
+          </div>
+        </div>
+    </div>
+        <!--FOOTER-->
+        <div class="container">
+          <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
+            <p class="col-md-4 mb-0 text-body-secondary">© 2024 Sean Chang and UCLA MAGIST</p>
+        
+            <a href="/" class="col-md-4 d-flex align-items-center justify-content-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
+              SC
+            </a>
+        
+            <ul class="nav col-md-4 justify-content-end">
+              <li class="nav-item"><a href="yaboichangster.github.io" class="nav-link px-2 text-body-secondary">Home</a></li>
+              <li class="nav-item"><a href="https://magist.gis.ucla.edu/" class="nav-link px-2 text-body-secondary">UCLA MAGIST</a></li>
+            </ul>
+          </footer>
+      </div>
+  </html>
+  </body>
+</html>
+
+<script>
+// UTILITY FUNCTION:  Haversine distance calculator
+function haversine(lat1, lon1, lat2, lon2, miles) {
+    function toRad(x) {
+        return x * Math.PI / 180;
+    }
+    const R = 6371; // km
+    let x1 = lat2 - lat1;
+    let dLat = toRad(x1);
+    let x2 = lon2 - lon1;
+    let dLon = toRad(x2)
+    let a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+    Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) *
+    Math.sin(dLon / 2) * Math.sin(dLon / 2);
+    let c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    let d = R * c;
+    if (miles == true) d = d / 1.60934;
+    return d;
+}
+
+// *****************************************************
+// WARM-UP EXERCISES:  Complete this series of five warm-up exercises to get started with JavaScript programming.  Your code for each one of the exercises should be placed after the comment introducing each exercise.  Each exercise is worth one point of your assignment score.
+
+// EXERCISE 1:  Write a loop that displays (on the console) the powers of 2 (i.e., 2 to the n-th power) for all numbers (n) ranging from 0 to 20.  Your output should be displayed in user-friendly text, i.e., "2 to the power of 8 is 256."
+function exercise1(){
+    for (let i = 0; i < 21; i++){
+        console.log("2 to the power of " + i + " is " + (2**i))
+    }
+}
+
+// EXERCISE 2:  Write a function that implements the Pythagorean theorem and returns the length of the hypotenuse of a right triangle using the lengths of the sides, which are to be passed in to the function as arguments.
+function exercise2(side1, side2){
+  return (side1**2 + side2**2)**0.5
+}
+
+// EXERCISE 3:  Write a function that can be used to test whether a number is even or odd, and call this function on at least one even number and one odd number to demonstrate that it works properly. The function should return a value of true if the number is even and false if the number is odd.
+function exercise3(num){
+  if(num % 2 == 0) return true;
+  return false
+}
+
+// EXERCISE 4:  Write a function that converts Degree-Minute-Second (DMS) coordinates to decimal degrees.  The function should accept degrees, minutes, and seconds as three separate arguments.
+// DD = (Seconds/3600) + (Minutes/60) + Degrees
+function exercise4(degrees, minutes, seconds){
+  return degrees + minutes/60 + seconds/3600
+}
+
+// EXERCISE 5:  Write a statement that changes the HTML content of a <div> tag.
+function exercise5(){
+  document.getElementById("tag").innerHTML = "Change the text of the div to this";
+}
+
+// *****************************************************
+// PROGRAMMING CHALLENGES:  You will complete two more extensive programming exercises -- (1) developing an interactive distance calculation tool, and (2) developing an interactive guessing game.  Write the JavaScript code for each of the programming challenges below.  All supporting HTML should be written above where indicated.
+
+// PROGRAMMING CHALLENGE 1:  LOCATION CALCULATOR (eight points)
+// Place the JavaScript code for your location calculator below.
+// HINT:  Write a function that calculates distance after the user clicks on a button.
+function challenge1(){
+    let lon1 = Number(document.getElementById('lon1textbox').value);
+    let lat1 = Number(document.getElementById('lat1textbox').value);
+    let lon2 = Number(document.getElementById('lon2textbox').value);
+    let lat2 = Number(document.getElementById('lat2textbox').value);
+
+    if(document.getElementById('radioMI').checked == true){
+            document.getElementById('result').innerHTML = "Result: " + String(haversine(lat1, lon1, lat2, lon2, true)) + " mi";
+        }
+
+    else{
+        document.getElementById('result').innerHTML = "Result: " + String(haversine(lat1, lon1, lat2, lon2, false)) + " km";
+
+    }
+
+}
+
+// PROGRAMMING CHALLENGE 2: NUMBER GUESSING GAME (six points)
+// Place the JavaScript code for your number guessing game below.  Note that you do not need to write logic to handle restarting the game --  for the sake of simplicity, the user can reload the Web page to restart the game.
+// HINT:  Declare variables for storing (1) turns taken and (2) the correct number, and then write a function to check the guess that is triggered by clicking a button.
+random = Math.floor(Math.random() * 100);
+turns = 0
+
+function challenge2(){
+    let guess = Number(document.getElementById('guesstextbox').value);
+    turns++;
+    if(guess < random){
+        document.getElementById('result2').innerHTML = String(guess) + " is lower. This is guess #" + String(turns);
+    }
+    else if(guess > random){
+        document.getElementById('result2').innerHTML = String(guess) + " is higher. This is guess #" + String(turns);
+    }
+    else{
+        document.getElementById('result2').innerHTML = String(guess) + " was correct. Your score is " + String(turns) + ". The game has ended, please refresh the page to replay.";
+    }
+}
+
+</script>

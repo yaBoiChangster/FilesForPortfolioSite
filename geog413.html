@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<!--*****************************************************
+
+GEOG 414: Programming for Geospatial Data Science II
+Unit 5 Assignment Landing Page
+
+Sean Chang
+
+*****************************************************-->
+<html>
+    <head>
+        <title>Landing Page!</title>
+        <meta charset="utf-8" />
+        <!-- TODO: Import stylesheets for Bootstrap and C3 -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/c3/0.7.20/c3.min.css" integrity="sha512-cznfNokevSG7QPA5dZepud8taylLdvgr0lDqw/FEZIhluFsSwyvS81CMnRdrNSKwbsmc43LtRd2/WMQV+Z85AQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        
+        <style>
+        /* TODO: Fill in any necessary CSS styles here */
+        #centerName{
+            text-align: center;
+            padding-top: 5%;
+            padding-bottom: 3%;
+            animation: inAnimation ease 3s;
+            animation-iteration-count: 1;
+            animation-fill-mode: forwards;
+        }
+
+        #subtitle{
+            text-align: center;
+            padding-bottom: 5%;
+            font-style: italic;
+            animation: inAnimation ease 3s;
+            animation-iteration-count: 1;
+            animation-fill-mode: forwards;
+        }
+
+        .heading{
+            text-align: center;
+            padding-bottom: 2%;
+            padding-top:3%;
+        }
+
+        @keyframes inAnimation {
+            0% {
+                opacity: 0;
+                transform: translateY(20%); 
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0%); 
+            }
+        }
+
+        .list-group-item{
+            text-align:center
+        }
+        </style>
+
+    </head>
+
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
+
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg bg-light">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">SC</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="yaboichangster.github.io/index.html">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="yaboichangster.github.io/geog413.html">GEOG 413 Landing Page</a>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Assignments
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" href="yaboichangster.github.io/u1.html">A1: Guessing Game</a></li>
+                  <li><a class="dropdown-item" href="yaboichangster.github.io/u21.html">A2-1: Taiwan Population Choropleth Map</a></li>
+                  <li><a class="dropdown-item" href="yaboichangster.github.io/u22.html">A2-2: Taiwan Stations Symbol Map</a></li>
+                  <li><a class="dropdown-item" href="yaboichangster.github.io/u3.html">A3: 2020 US Election</a></li>
+                  <li><a class="dropdown-item" href="yaboichangster.github.io/p4.html">P4: California SVG</a></li>
+                  <li><a class="dropdown-item" href="yaboichangster.github.io/u4.html">A4: World Income Dashboard</a></li>
+                  <li><a class="dropdown-item" href="yaboichangster.github.io/u5.html">A5: 2024 Taiwan Election</a></li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+
+    <!--Name and Subtitle-->
+    <div class="name">
+        <h1 id="centerName">Sean Chang</h1>
+        <h5 id="subtitle">UCLA MAGIST GEOG 414 SPRING 2024 PORTFOLIO</h5>
+        <h3 class="heading">Showcase</h3>
+    </div>
+
+
+    <!--Assignment 5 Card-->
+    <div class="container text-center">
+        <div class="row align-items-start">
+            <div class="col">
+                <div class="card" style="width: 100%;">
+                    <img src="u5.PNG" class="card-img-top" alt="..." style=" display: block; margin-left: auto; margin-right: auto; width:40%">
+                    <div class="card-body">
+                      <h5 class="card-title" style="text-align:center; left: 50%;">Taiwan 2024 Election Map</h5>
+                      <p class="card-text" style="text-align:center; left: 50%;">Unit 5 Assignment: Web Application Hosting and Development: Develop and host a custom web map of a topic of my choice, using all of the skills I've learned from the class!</p>
+                      <a href="http://yaboichangster.github.io/u5.html" class="btn btn-primary" style="left: 50%;">See it in Action!</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!--Cards-->
+    <div class="container">
+        <div class="row align-items-start">
+            <div class="col">
+                <div class="card" style="width: 100%;">
+                    <img src="u4.PNG" class="card-img-top" alt="...">
+                    <div class="card-body">
+                      <h5 class="card-title">World Income Dashboard</h5>
+                      <p class="card-text">Unit 4 Assignment: Mapping Inequality with D3. A dashboard for world income and income inequality, 1800 to 2010.</p>
+                      <a href="http://yaboichangster.github.io/u4.html" class="btn btn-primary">See it in Action!</a>
+                    </div>
+                </div>
+                <div class="card" style="width: 100%;">
+                    <img src="p4.PNG" class="card-img-top" alt="...">
+                    <div class="card-body">
+                      <h5 class="card-title">California SVG</h5>
+                      <p class="card-text">Unit 4 Discussion Post: Exploring Scalable Vector Graphics. California. Witness my art.</p>
+                      <a href="http://yaboichangster.github.io/p4.html" class="btn btn-primary">See it in Action!</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card" style="width: 100%;">
+                    <img src="u3.PNG" class="card-img-top" alt="...">
+                    <div class="card-body">
+                      <h5 class="card-title">2020 US Election Map</h5>
+                      <p class="card-text">Unit 3 Assignment: Interactive Mapping with Hosted Vector and Image Tile Services. A recreation of "A Very Detailed Map of the 2020 US Election."</p>
+                      <a href="http://yaboichangster.github.io/u3.html" class="btn btn-primary">See it in Action!</a>
+                    </div>
+                </div>
+                <div class="card" style="width: 100%;">
+                    <img src="u22.PNG" class="card-img-top" alt="...">
+                    <div class="card-body">
+                      <h5 class="card-title">Taiwan Stations Symbol Map</h5>
+                      <p class="card-text">Unit 2 Assignment: Thematic Mapping with Leaflet: Part 1: Symbol Map. A symbol map of Taiwan's train stations and their ridership.</p>
+                      <a href="http://yaboichangster.github.io/u22.html" class="btn btn-primary">See it in Action!</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card" style="width: 100%;">
+                    <img src="u21.PNG" class="card-img-top" alt="...">
+                    <div class="card-body">
+                      <h5 class="card-title">Taiwan Population Choropleth Map</h5>
+                      <p class="card-text">Unit 2 Assignment: Thematic Mapping with Leaflet: Part 2: Choropleth Map. A choropleth map of Taiwan's 2020 Population.</p>
+                      <a href="http://yaboichangster.github.io/u21.html" class="btn btn-primary">See it in Action!</a>
+                    </div>
+                </div>
+                <div class="card" style="width: 100%;">
+                    <img src="u1.PNG" class="card-img-top" alt="...">
+                    <div class="card-body">
+                      <h5 class="card-title">Guessing Game</h5>
+                      <p class="card-text">Unit 1 Assignment: Introduction to JavaScript and Web Programming. We all have to start somewhere!</p>
+                      <a href="http://yaboichangster.github.io/u1.html" class="btn btn-primary">See it in Action!</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class = "title2">
+        <h3 class="heading">Skills</h3>
+    </div>
+
+    <!--SKILLS LIST-->
+    <div class="container">
+            <ul class="list-group list-group-flush">
+            <li class="list-group-item">HTML</li>
+            <li class="list-group-item">CSS</li>
+            <li class="list-group-item">JavaScript</li>
+            <li class="list-group-item">Bootstrap</li>
+            <li class="list-group-item">Leaflet</li>
+            <li class="list-group-item">GeoServer</li>
+            <li class="list-group-item">D3</li>
+        <li class="list-group-item">Amazon Web Services</li>
+        </ul>
+    </div>
+    
+    <!--FOOTER-->
+    <div class="container">
+        <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
+          <p class="col-md-4 mb-0 text-body-secondary">© 2024 Sean Chang and UCLA MAGIST</p>
+      
+          <a href="/" class="col-md-4 d-flex align-items-center justify-content-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
+            SC
+          </a>
+      
+          <ul class="nav col-md-4 justify-content-end">
+            <li class="nav-item"><a href="yaboichangster.github.io" class="nav-link px-2 text-body-secondary">Home</a></li>
+            <li class="nav-item"><a href="https://magist.gis.ucla.edu/" class="nav-link px-2 text-body-secondary">UCLA MAGIST</a></li>
+          </ul>
+        </footer>
+    </div>
+</html>

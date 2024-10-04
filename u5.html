@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<!--*****************************************************
+
+Sean Chang
+GEOG 414: Programming for Geospatial Data Science II
+Unit 5 Assignment Map
+
+*****************************************************-->
+
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<!-- TO DO: Add a map title -->
+	<title>2024 Taiwan Election Map</title>
+	<!-- TO DO: Import Bootstrap (first), Leaflet (second), and ColorBrewer (third) if needed -->
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/c3/0.7.20/c3.min.css" integrity="sha512-cznfNokevSG7QPA5dZepud8taylLdvgr0lDqw/FEZIhluFsSwyvS81CMnRdrNSKwbsmc43LtRd2/WMQV+Z85AQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-geo-projection/2.4.0/d3-geo-projection.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/c3/0.7.20/c3.min.js" integrity="sha512-+IpCthlNahOuERYUSnKFjzjdKXIbJ/7Dd6xvUp+7bEw0Jp2dg6tluyxLs+zq9BMzZgrLv8886T4cBSqnKiVgUw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+	<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+	<script src="https://unpkg.com/leaflet.vectorgrid@latest/dist/Leaflet.VectorGrid.bundled.js"></script>
+	<script src="https://unpkg.com/browse/leaflet.nontiledlayer@1.0.9/dist/NonTiledLayer.js"></script>
+    <script src ="https://colorbrewer2.org/export/colorbrewer.js"></script>
+
+    <script src="Taiwan2024Election.js"></script>
+
+    <style>
+		/* TO DO: Write custom CSS for map and legend as needed. Map is top two, legend is rest. */
+		#map {
+			height:900px;
+		}
+		#legend {
+			background-color:#ffffff;
+			border: 2px solid rgba(0, 0, 0, 2);
+			border-radius: 4px;
+			padding: 5px;
+		}
+        #legendLCT {
+			background-color:#ffffff;
+			border: 2px solid rgba(0, 0, 0, 2);
+			border-radius: 4px;
+			padding: 5px;
+		}
+        #legendHYI {
+			background-color:#ffffff;
+			border: 2px solid rgba(0, 0, 0, 2);
+			border-radius: 4px;
+			padding: 5px;
+		}
+        #legendKWZ {
+			background-color:#ffffff;
+			border: 2px solid rgba(0, 0, 0, 2);
+			border-radius: 4px;
+			padding: 5px;
+		}
+		#legend-title{
+			font-weight: bold;
+			border-bottom: 1px solid rgba(0, 0, 0, 2);
+			margin-bottom: 5px;
+			padding-bottom: 5px;
+		}
+		.legend-row{
+			display:table;
+		}
+		.legend-color{
+			display:table-cell;
+			width: 30px;
+			height: 30px;
+		}
+		.legend-caption{
+			display:table-cell;
+			padding-left: 5px;
+			vertical-align: middle;
+		}
+        .row{
+            padding-top: 2px;
+        }
+	</style>
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg bg-light">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">SC</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+				<li class="nav-item">
+					<a class="nav-link active" aria-current="page" href="yaboichangster.github.io/index.html">Home</a>
+				  </li>
+				  <li class="nav-item">
+					<a class="nav-link active" aria-current="page" href="yaboichangster.github.io/geog413.html">GEOG 413 Landing Page</a>
+				  </li>
+			  <li class="nav-item dropdown">
+				<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+				  Assignments
+				</a>
+				<ul class="dropdown-menu">
+				  <li><a class="dropdown-item" href="yaboichangster.github.io/u1.html">A1: Guessing Game</a></li>
+				  <li><a class="dropdown-item" href="yaboichangster.github.io/u21.html">A2-1: Taiwan Population Choropleth Map</a></li>
+				  <li><a class="dropdown-item" href="yaboichangster.github.io/u22.html">A2-2: Taiwan Stations Symbol Map</a></li>
+				  <li><a class="dropdown-item" href="yaboichangster.github.io/u3.html">A3: 2020 US Election</a></li>
+				  <li><a class="dropdown-item" href="yaboichangster.github.io/p4.html">P4: California SVG</a></li>
+				  <li><a class="dropdown-item" href="yaboichangster.github.io/u4.html">A4: World Income Dashboard</a></li>
+				  <li><a class="dropdown-item" href="yaboichangster.github.io/u5.html">A5: 2024 Taiwan Election</a></li>
+				</ul>
+			  </li>
+			</ul>
+		  </div>
+		</div>
+	  </nav>
+
+	<!-- TO DO: Create single-column Bootstrap layout with two rows: one for the map's header (title and subtitle) and another containing the map itself -->
+	<div class = "container">
+		<div class = "row">
+			<div class = "column">
+				<h3>Results of the 2024 Taiwanese Presidential Election</h3>
+				<h5>Votes cast by second-level administrative division (township/district). Loosely based off <a href="https://www.bloomberg.com/graphics/2024-taiwan-election/">this map</a> by Bloomberg Politics.</h5>
+                <h6>Geographic Data from <a href="https://data.gov.tw/en">Taiwan Ministry of Interior</a></h6>
+                <h6>Election Data from <a href="https://db.cec.gov.tw/ElecTable/Election/ElecTickets?dataType=tickets&typeId=ELC&subjectId=P0&legisId=00&themeId=4d83db17c1707e3defae5dc4d4e9c800&dataLevel=N&prvCode=00&cityCode=000&areaCode=00&deptCode=000&liCode=0000">Taiwan Central Election Commission</a></h6>
+                <h6>Data painfully compiled by Sean Chang</h6>
+                <hr/>
+                <h6>Lai Ching-te (DPP) v.s. Ho Yu-ih (KMT) v.s. Ko Wen-je (TPP)</h6>
+                <p>Context: The Taiwanese presidential election system is a plurality voting (popular vote winner) system. As tensions between Mainland China and Taiwan have flared up to a relative peak, this election was framed as critical in deciding the direction of Taiwan. The incumbent Denocratic People's Party's (DPP) Tsai Ing-Wen had reached her two-term limit. The party nominated Lai Ching-te (賴清德, William Lai), the incumbent vice president. The DPP stands progressive and has taken a stance that leans towards Taiwan independence. The Kuomintang (KMT) Party nominated Hou Yu-ih (侯友宜), mayor of Taiwan's largest city, New Taipei City. The Kuomintang has historically been the long-time ruling party of the island (which itself is controversial depending on who you ask), stands conservative, and has advocated for closer ties with mainland China. This election also introduces a strong third party, the Taiwan People's Party. Ko Wen-je (柯文哲) was the former mayor of the capital city, Taipei. The party takes a populist center-left stance and advocates with closer ties with Mainland China.</p>
+			</div>
+            <hr/>
+		</div>
+
+		<div class = "row">
+            <div class = "column">
+				<p>Select a Visualization</p>
+				<select id = 'select-vis' class = "form-select" aria-label = "Visualization Selection" onchange = "drawMap()">
+					<option value="Majority" selected>Majority Vote Winner</option>
+					<option value="LCT">Lai Ching-te Vote Share</option>
+					<option value="HYI">Hou Yu-ih Vote Share</option>
+					<option value="KWJ">Ko Wen-je Vote Share</option>
+
+				</select>
+                <hr/>
+			</div>
+		</div>
+			<div class = "column">
+				<div id="map"></div>
+			</div>
+		</div>
+	</div>
+
+    <!-- TO DO: Outside the container, create the structure of the legend -->
+     <!--Combined Legend-->
+	<div id="legend">
+		<div id="legend-title">Margin of Vote Share</div> <br/>
+		<div id="legend-row">
+			<div class="legend-color" style="background-color: #045a8d"></div>
+			<div class="legend-caption">Hou Yu-Ih +50% or Greater</div>
+		</div>
+		<div id="legend-row">
+			<div class="legend-color" style="background-color: #74a9cf"></div>
+			<div class="legend-caption">Hou Yu-Ih +25% to +50%</div>
+		</div>
+		<div id="legend-row">
+			<div class="legend-color" style="background-color: #bdc9e1"></div>
+			<div class="legend-caption">Hou Yu-Ih +0% to +25%</div>
+		</div>
+        <div id="legend-row">
+			<div class="legend-color" style="background-color: #00f2ff"></div>
+			<div class="legend-caption">Ko Wen-Je +0% or Greater</div>
+		</div>
+		<div id="legend-row">
+			<div class="legend-color" style="background-color: #b2e2e2"></div>
+			<div class="legend-caption">Lai Ching-Te +0% to +25%</div>
+		</div>
+		<div id="legend-row">
+			<div class="legend-color" style="background-color: #66c2a4"></div>
+			<div class="legend-caption">Lai Ching-Te +25% to +50%</div>
+		</div>
+		<div id="legend-row">
+			<div class="legend-color" style="background-color: #006d2c"></div>
+			<div class="legend-caption">Lai Ching-Te +50% or Greater</div>
+		</div>
+	</div>
+
+    <!--LCT Legend-->
+    <div id="legendLCT">
+		<div id="legend-title">Lai Ching-te's Vote Share</div> <br/>
+		<div id="legend-row">
+			<div class="legend-color" style="background-color: #006d2c"></div>
+			<div class="legend-caption">50% or Greater</div>
+		</div>
+        <div id="legend-row">
+			<div class="legend-color" style="background-color: #2ca25f"></div>
+			<div class="legend-caption">40 % to 50%</div>
+		</div>
+        <div id="legend-row">
+			<div class="legend-color" style="background-color: #66c2a4"></div>
+			<div class="legend-caption">30 % to 40%</div>
+		</div>
+        <div id="legend-row">
+			<div class="legend-color" style="background-color: #99d8c9"></div>
+			<div class="legend-caption">20 % to 30%</div>
+		</div>
+        <div id="legend-row">
+			<div class="legend-color" style="background-color: #ccece6"></div>
+			<div class="legend-caption">10 % to 20%</div>
+		</div>
+        <div id="legend-row">
+			<div class="legend-color" style="background-color: #edf8fb"></div>
+			<div class="legend-caption">0 % to 10%</div>
+		</div>
+	</div>
+
+     <!--HYI Legend-->
+    <div id="legendHYI">
+		<div id="legend-title">Hou Yu-ih's Vote Share</div> <br/>
+		<div id="legend-row">
+			<div class="legend-color" style="background-color: #045a8d"></div>
+			<div class="legend-caption">50% or Greater</div>
+		</div>
+        <div id="legend-row">
+			<div class="legend-color" style="background-color: #2b8cbe"></div>
+			<div class="legend-caption">40 % to 50%</div>
+		</div>
+        <div id="legend-row">
+			<div class="legend-color" style="background-color: #74a9cf"></div>
+			<div class="legend-caption">30 % to 40%</div>
+		</div>
+        <div id="legend-row">
+			<div class="legend-color" style="background-color: #a6bddb"></div>
+			<div class="legend-caption">20 % to 30%</div>
+		</div>
+        <div id="legend-row">
+			<div class="legend-color" style="background-color: #d0d1e6"></div>
+			<div class="legend-caption">10 % to 20%</div>
+		</div>
+        <div id="legend-row">
+			<div class="legend-color" style="background-color: #f1eef6"></div>
+			<div class="legend-caption">0 % to 10%</div>
+		</div>
+	</div>
+
+    <!--KWZ Legend-->
+    <div id="legendKWZ">
+		<div id="legend-title">Kuo Wen je's Vote Share</div> <br/>
+		<div id="legend-row">
+			<div class="legend-color" style="background-color: #253494"></div>
+			<div class="legend-caption">50% or Greater</div>
+		</div>
+        <div id="legend-row">
+			<div class="legend-color" style="background-color: #2c7fb8"></div>
+			<div class="legend-caption">40 % to 50%</div>
+		</div>
+        <div id="legend-row">
+			<div class="legend-color" style="background-color: #41b6c4"></div>
+			<div class="legend-caption">30 % to 40%</div>
+		</div>
+        <div id="legend-row">
+			<div class="legend-color" style="background-color: #7fcdbb"></div>
+			<div class="legend-caption">20 % to 30%</div>
+		</div>
+        <div id="legend-row">
+			<div class="legend-color" style="background-color: #c7e9b4"></div>
+			<div class="legend-caption">10 % to 20%</div>
+		</div>
+        <div id="legend-row">
+			<div class="legend-color" style="background-color: #ffffcc"></div>
+			<div class="legend-caption">0 % to 10%</div>
+		</div>
+	</div>
+
+    <!--FOOTER-->
+    <div class="container">
+        <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
+          <p class="col-md-4 mb-0 text-body-secondary">© 2024 Sean Chang and UCLA MAGIST</p>
+      
+          <a href="/" class="col-md-4 d-flex align-items-center justify-content-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
+            SC
+          </a>
+      
+          <ul class="nav col-md-4 justify-content-end">
+            <li class="nav-item"><a href="34.219.16.116" class="nav-link px-2 text-body-secondary">Home</a></li>
+            <li class="nav-item"><a href="https://magist.gis.ucla.edu/" class="nav-link px-2 text-body-secondary">UCLA MAGIST</a></li>
+          </ul>
+        </footer>
+    </div>
+</body>
+</html>
+<script type="text/javascript">
+
+let datalayer = null;
+
+// TO DO: Initialize the map with an appropriate center and zoom level
+let map = L.map('map').setView([23.5, 121], 8); //# Copied from Leaflet Quickstart guide. In the setView function, Lat, Lon in the array, then scale. 
+// TO DO: Add a visually appealing and unobtrusive basemap. #Copied from the Leaflet basemap gallery JavaScript section, https://leaflet-extras.github.io/leaflet-providers/preview/
+let basemap = L.tileLayer('https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png', {
+	attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+	subdomains: 'abcd',
+	maxZoom: 20
+}).addTo(map);
+
+function fillColor(p){
+    if(document.getElementById("select-vis").value == 'Majority'){
+		if(p >= 50) return '#045a8d';
+		else if(p >= 25) return '#74a9cf';
+		else if (p > 0) return '#bdc9e1';
+        else if (p == 0) return '#00f2ff';
+		else if (p >= -25) return '#b2e2e2';
+		else if (p >= -50) return '#66c2a4';
+		else if (p >= -100) return'#006d2c';
+		else return '#aaaaaa';
+	}
+
+    else if(document.getElementById("select-vis").value == 'LCT'){
+		if(p >= 50) return '#006d2c';
+		else if(p >= 40) return '#2ca25f';
+        else if(p >= 30) return '#66c2a4';
+		else if(p >= 20) return '#99d8c9';
+		else if(p >= 10) return '#ccece6';
+        else if(p >= 0) return '#edf8fb';
+		else return '#aaaaaa';
+	}
+
+    else if(document.getElementById("select-vis").value == 'HYI'){
+		if(p >= 50) return '#045a8d';
+		else if(p >= 40) return '#2b8cbe';
+        else if(p >= 30) return '#74a9cf';
+		else if(p >= 20) return '#a6bddb';
+		else if(p >= 10) return '#d0d1e6';
+        else if(p >= 0) return '#f1eef6';
+		else return '#aaaaaa';
+	}
+
+    else if(document.getElementById("select-vis").value == 'KWJ'){
+		if(p >= 50) return '#253494';
+		else if(p >= 40) return '#2c7fb8';
+        else if(p >= 30) return '#41b6c4';
+		else if(p >= 20) return '#7fcdbb';
+		else if(p >= 10) return '#c7e9b4';
+        else if(p >= 0) return '#ffffcc';
+		else return '#aaaaaa';
+	}
+    return '#aaaaaa';
+}
+
+function drawMap(){
+	let selected_variable = document.getElementById("select-vis").value;
+	if(datalayer != null) map.removeLayer(datalayer);
+
+        datalayer = L.geoJSON(ts, { // first return the toenship data, then apply a style function (see Leaflet documentation)
+		style: function(feature) { 
+            if(selected_variable == 'Majority'){
+            document.getElementById('legend').style.display = 'block';
+            document.getElementById('legendLCT').style.display = 'none';
+            document.getElementById('legendHYI').style.display = 'none';
+            document.getElementById('legendKWZ').style.display = 'none';
+                return {
+                    'fillColor': fillColor(feature.properties.Percent_LCT_HYI),
+                    'color': fillColor(feature.properties.Percent_LCT_HYI),
+                    'weight': 1
+                }
+			}
+            if(selected_variable == 'LCT'){
+            document.getElementById('legendLCT').style.display = 'block';
+            document.getElementById('legend').style.display = 'none';
+            document.getElementById('legendHYI').style.display = 'none';
+            document.getElementById('legendKWZ').style.display = 'none';
+                return {
+                    'fillColor': fillColor(feature.properties.LCT_Percent),
+                    'color': fillColor(feature.properties.LCT_Percent),
+                    'weight': 1
+                }
+			}
+            if(selected_variable == 'HYI'){
+            document.getElementById('legendHYI').style.display = 'block';
+            document.getElementById('legend').style.display = 'none';
+            document.getElementById('legendLCT').style.display = 'none';
+            document.getElementById('legendKWZ').style.display = 'none';
+                return {
+                    'fillColor': fillColor(feature.properties.HYI_Percent),
+                    'color': fillColor(feature.properties.HYI_Percent),
+                    'weight': 1
+                }
+			}
+            if(selected_variable == 'KWJ'){
+            document.getElementById('legendKWZ').style.display = 'block';
+            document.getElementById('legend').style.display = 'none';
+            document.getElementById('legendLCT').style.display = 'none';
+            document.getElementById('legendHYI').style.display = 'none';
+                return {
+                    'fillColor': fillColor(feature.properties.KWZ_Percent),
+                    'color': fillColor(feature.properties.KWZ_Percent),
+                    'weight': 1
+                }
+			}
+            return {
+                    'fillColor': '#bbbbbb',
+                    'color': fillColor(feature.properties.Percent_LCT_HYI),
+                    'weight': 1
+                }
+		}
+	}).bindTooltip(function(layer) {
+		return `<strong>${layer.feature.properties.TOWN_MOI_1100316_TOWNENG},  ${layer.feature.properties.TaiwanesePopulation_Part_of}</strong><br/>${layer.feature.properties.TOWN_MOI_1100316_COUNTYNAME}${layer.feature.properties.TOWN_MOI_1100316_TOWNNAME}<hr/>Valid Votes: ${layer.feature.properties.Election2024_ValidVotes}</br>Lai Ching-te: ${layer.feature.properties.Election2024_LaiChingTe} Votes (${Number(layer.feature.properties.LCT_Percent).toFixed(2)}%)<br/>Hou Yu-ih: ${layer.feature.properties.Election2024_HoYouYi} Votes (${Number(layer.feature.properties.HYI_Percent).toFixed(2)}%)<br/>Kuo Wen-je: ${layer.feature.properties.Election2024_KuoWenZhe} Votes (${Number(layer.feature.properties.KWZ_Percent).toFixed(2)}%)`
+	}).addTo(map)
+
+    if(legend != null) map.removeLayer(legend);
+    legend = L.control({position: 'bottomleft'}); 
+    legend.onAdd = function(m) {
+        if(document.getElementById("select-vis").value == 'Majority') return document.getElementById('legend');
+        else if(document.getElementById("select-vis").value == 'LCT') return document.getElementById('legendLCT');
+        else if(document.getElementById("select-vis").value == 'HYI') return document.getElementById('legendHYI');
+        else if(document.getElementById("select-vis").value == 'KWJ') return document.getElementById('legendKWZ');
+        return document.getElementById('legend')
+    }
+    legend.addTo(map)
+}
+
+drawMap();
+</script>

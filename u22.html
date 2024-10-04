@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<!--*****************************************************
+
+GEOG 414: Programming for Geospatial Data Science II
+Unit 2 Demo 5/Assignment: Symbol Map
+
+This is a point map of rail stations in Taiwan. I compiled this data for a personal assignment. 
+
+*****************************************************-->
+
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<!-- TO DO: Add a map title -->
+	<title>Train Stations in Taiwan</title>
+	<!-- TO DO: Import Bootstrap (first), Leaflet (second), and ColorBrewer (third) if needed -->
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+	<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+	<!-- TO DO: Import GeoJSON file, converted to JS file with variable declaration -->
+	<script src = "stations.js"> </script>
+    <style>
+		/* TO DO: Write custom CSS for map and legend as needed. Map is top two, legend is rest. */
+		#map {
+			height:900px;
+		}
+		#map path:hover{
+			stroke: #41fdfe;
+			fill: #41fdfe;
+		}
+		#legend {
+			background-color:#ffffff;
+			border: 2px solid rgba(0, 0, 0, 2);
+			border-radius: 4px;
+			padding: 5px;
+		}
+		#legend-title{
+			font-weight: bold;
+			border-bottom: 1px solid rgba(0, 0, 0, 2);
+			margin-bottom: 5px;
+			padding-bottom: 5px;
+		}
+		.legend-row{
+			display:table;
+		}
+		.legend-color{
+			display:table-cell;
+			width: 30px;
+			height: 30px;
+		}
+		.legend-caption{
+			display:table-cell;
+			padding-left: 5px;
+			vertical-align: middle;
+		}
+
+	</style>
+</head>
+<body>
+	    <!-- NAVBAR -->
+		<nav class="navbar navbar-expand-lg bg-light">
+			<div class="container-fluid">
+			  <a class="navbar-brand" href="#">SC</a>
+			  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			  </button>
+			  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+				  <li class="nav-item">
+					<a class="nav-link active" aria-current="page" href="34.219.16.116">Home</a>
+				  </li>
+				  <li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+					  Assignments
+					</a>
+					<ul class="dropdown-menu">
+					  <li><a class="dropdown-item" href="34.219.16.116/u1.html">A1: Guessing Game</a></li>
+					  <li><a class="dropdown-item" href="34.219.16.116/u21.html">A2-1: Taiwan Population Choropleth Map</a></li>
+					  <li><a class="dropdown-item" href="34.219.16.116/u22.html">A2-2: Taiwan Stations Symbol Map</a></li>
+					  <li><a class="dropdown-item" href="34.219.16.116/u3.html">A3: 2020 US Election</a></li>
+					  <li><a class="dropdown-item" href="34.219.16.116/p4.html">P4: California SVG</a></li>
+					  <li><a class="dropdown-item" href="34.219.16.116/u4.html">A4: World Income Dashboard</a></li>
+					  <li><a class="dropdown-item" href="34.219.16.116/u5.html">A5: 2024 Taiwan Election</a></li>
+					</ul>
+				  </li>
+				</ul>
+			  </div>
+			</div>
+		  </nav>
+	
+	<!-- TO DO: Create single-column Bootstrap layout with two rows: one for the map's header (title and subtitle) and another containing the map itself -->
+	<div class = "container">
+		<div class = "row">
+			<div class = "column">
+				<h3>Train Stations in Taiwan</h3>
+				<h5>Deliniated by System. Size of circle based on yearly passenger boardings.</h5>
+			</div>
+		</div>
+		<div class = "row">
+			<div class = "column">
+				<div id="map"></div>
+			</div>
+		</div>
+	</div>
+    <!-- TO DO: Outside the container, create the structure of the legend -->
+	<div id="legend">
+		<div id="legend-title"> Rail Systems </div> <br/>
+		<div id="legend-title"> National Rail Systems </div>
+		<div id="legend-row">
+			<div class="legend-color" style="background-color: #004DA8"></div>
+			<div class="legend-caption">Taiwan Railways</div>
+		</div>
+		<div id="legend-row">
+			<div class="legend-color" style="background-color: #FFAA00"></div>
+			<div class="legend-caption">Taiwan High Speed Rail</div>
+		</div>
+		<div id="legend-title"> Metro Systems </div>
+		<div id="legend-row">
+			<div class="legend-color" style="background-color: #A80000"></div>
+			<div class="legend-caption">Taipei Metro</div>
+		</div>
+		<div id="legend-row">
+			<div class="legend-color" style="background-color: #A87000"></div>
+			<div class="legend-caption">Kaohsiung Mass Rapid Transit</div>
+		</div>
+		<div id="legend-row">
+			<div class="legend-color" style="background-color: #8400A8"></div>
+			<div class="legend-caption">Taoyuan Airport MRT</div>
+		</div>
+		<div id="legend-row">
+			<div class="legend-color" style="background-color: #A8A800"></div>
+			<div class="legend-caption">New Taipei Metro</div>
+		</div>
+		<div id="legend-row">
+			<div class="legend-color" style="background-color: #38A800"></div>
+			<div class="legend-caption">Taichung Metro</div>
+		</div>
+	</div>
+	    <!--FOOTER-->
+		<div class="container">
+			<footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
+			  <p class="col-md-4 mb-0 text-body-secondary">© 2024 Sean Chang and UCLA MAGIST</p>
+		  
+			  <a href="/" class="col-md-4 d-flex align-items-center justify-content-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
+				SC
+			  </a>
+		  
+			  <ul class="nav col-md-4 justify-content-end">
+				<li class="nav-item"><a href="34.219.16.116" class="nav-link px-2 text-body-secondary">Home</a></li>
+				<li class="nav-item"><a href="https://magist.gis.ucla.edu/" class="nav-link px-2 text-body-secondary">UCLA MAGIST</a></li>
+			  </ul>
+			</footer>
+		</div>
+	</html>
+</body>
+</html>
+<script type="text/javascript">
+
+// TO DO: Write utility function to return fill color for symbols
+function symbolColor(system){
+	if(system == 'Kaohsiung Mass Rapid Transit')return '#A87000';
+	if(system == 'New Taipei Metro')return '#A8A800';
+	if(system == 'Taichung Metro')return '#38A800';
+	if(system == 'Taipei Metro')return '#A80000';
+	if(system == 'Taiwan High Speed Rail')return '#FFAA00';
+	if(system == 'Taiwan Railways')return '#004DA8';
+	if(system == 'Taoyuan Metro')return '#8400A8';
+	if(system == 'New Taipei Metro')return '#A8A800';
+	else return '#888888';
+}
+
+// TO DO: Write utility function to return radius (in pixels) for symbols
+function symbolRadius(ridership){
+	if(ridership >= 20000000) return 30;
+	else if(ridership >=10000000) return 25;
+	else if (ridership >= 5000000) return 20;
+	else if (ridership >= 2500000) return 17;
+	else if (ridership >= 1000000) return 15;
+	else if (ridership >= 750000) return 13;
+	else if (ridership >= 500000) return 10;
+	else if (ridership >= 250000) return 7;
+	else if (ridership >= 100000) return 5;
+	else if (ridership >= 50000) return 4;
+	else if (ridership >= 25000) return 3;
+	else if (ridership >= 10000) return 2;
+	else if (ridership >= 1000) return 1;
+	return 1;
+}
+
+// TO DO: Initialize the map with an appropriate center and zoom level
+let map = L.map('map').setView([23.5, 121], 8); //# Copied from Leaflet Quickstart guide. In the setView function, Lat, Lon in the array, then scale. 
+// TO DO: Add a visually appealing and unobtrusive basemap. #Copied from the Leaflet basemap gallery JavaScript section, https://leaflet-extras.github.io/leaflet-providers/preview/
+let basemap = L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+	attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+	subdomains: 'abcd',
+	maxZoom: 20
+}).addTo(map);
+
+// TO DO: Add GeoJSON data layer, using pointToLayer to create each feature as a circleMarker with a specified radius, fill color, and stroke color.  Bind a tooltip showing variable values to each feature as well, within the pointToLayer function.
+let dataLayer = L.geoJson(stations, { //# First attribute in L.geoJson is the variable name of the GeoJson (it was copied into a separate js file)
+	pointToLayer: function(feature, latlng){
+		return L.circleMarker(latlng, {
+			radius: symbolRadius(feature.properties.PassengersInYearly), //# To get the attributes of each point, do feature.properties.ATTRIBUTE NAME . They can then be passed into a js function to return varied symbology. 
+			color: symbolColor(feature.properties.ENG_SystemName),
+			fillcolor: symbolColor(feature.properties.ENG_SystemName),
+			weight: 1
+		}).bindTooltip(`Station Name (EN): ${feature.properties.ENG_StationName}<br/>Station Name (CH): ${feature.properties.CH_StationName}<br/>System Name (EN): ${feature.properties.ENG_SystemName}<br/>System Name (CH): ${feature.properties.CH_SystemName}<br/>Passengers In (Yearly): ${feature.properties.PassengersInYearly}<br/>Passengers Out (Yearly): ${feature.properties.PassengersOutYearly}<br/>Passengers In (Daily): ${feature.properties.PassengersInDaily}<br/>Passengers Out (Daily): ${feature.properties.PassengersOutDaily}`);
+	}
+}).addTo(map)
+
+// TO DO: Create new Leaflet control and using the onAdd function, take the contents of the legend in the DOM and assign it to the new Leaflet control
+let legend = L.control({position: 'bottomleft'}); 
+legend.onAdd = function(m) {
+	return document.getElementById('legend')
+}
+legend.addTo(map)
+</script>
