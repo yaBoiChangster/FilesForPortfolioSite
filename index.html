@@ -39,7 +39,14 @@
             animation-iteration-count: 1;
             animation-fill-mode: forwards;
             z-index:1;
-        }
+            transition: transform 0.5s;
+            }
+
+
+            .out {
+            transform: scale(0);
+            }
+        
 
         #personamap{
             align-content:flex-start;
@@ -74,8 +81,9 @@
 
         .content{
             background-color: whitesmoke;
-            
-
+            padding-top:1%;
+            padding-left: 5%;
+            padding-right:5%
         }
 
         @keyframes inAnimation {
@@ -89,9 +97,7 @@
             }
         }
 
-        .list-group-item{
-            text-align:center
-        }
+
         </style>
 
     </head>
@@ -123,13 +129,94 @@
     <div class="name">
         <h1 id="centerName"><mark><b>Sean Chang</b></mark></h1>
         <h5 id="subtitle"><mark>GIS Analyst and Map Designer</mark></h5>
-        <h5 id = "welcome"><mark>Welcome and thank you for taking time to look over my portfolio!</mark></h5>
+        <h5 id = "welcome"><mark>Welcome and thank you for visiting!</mark></h5>
     </div>
 
+    <!--Meat and Bones-->
     <div class="content">
-        <hr style="width:75%;text-align:center;margin-left:12.5%">
-        <h3 class="heading">About Showcase Contact</h3>
+        <hr class="featurette-divider">
+        <div class="row featurette">
+            <div class="col-md-7 order-md-2">
+              <h2 class="featurette-heading fw-normal lh-1" id="hewwo">Hello everyone,</h2>
+              <h4><span class="text-body-secondary">I'm Sean Chang, or 張宇翔。</span></h4>
+              <p class="lead">*Insert life story and/or purpose*<hr/>📍 Phoenix, Arizona, USA<br/>💼 GIS Analyst, <i>Maricopa County Enterprise Technology and Innovation</i><br/>️🏫 Masters of Applied Geographic Information Systems and Technology, <i>UCLA</i><br/>🎓 B.S. Geographic Information Science, <i>Arizona State University</i><br/>🌎 Taiwanese-American</p>
+            </div>
+            <div class="col-md-5 order-md-1">
+                <img 
+                src="SC_Headshot2024_Square.JPG" 
+                class="featurette-image img-fluid mx-auto" 
+                alt="This is my face." 
+                width="500" 
+                height="500" 
+                preserveAspectRatio="xMidYMid slice" 
+                focusable="false";
+               >            
+            </div>
+          </div>
+
+        <hr class="featurette-divider">
+
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="ratio ratio-1x1 bg-success overflow-hidden border border-primary border-2" style="border-radius: 50%; width: 140px; height:140px;">
+                    <img src="grad.jpg">
+                </div>              
+              <h2 class="fw-normal">About</h2>
+              <p>Want to know more about me? I'm flattered!</p>
+              <p><a class="btn btn-secondary" href="/about.html">View details »</a></p>
+            </div><!-- /.col-lg-4 -->
+            <div class="col-lg-4">
+                <div class="ratio ratio-1x1 bg-success overflow-hidden border border-primary border-2" style="border-radius: 50%; width: 140px; height:140px;">
+                    <img src="Sphx.png">
+                </div>                
+                <h2 class="fw-normal">Portfolio</h2>
+              <p>My life's work, on display for you to judge.</p>
+              <p><a class="btn btn-secondary" href="/portfolio.html">View details »</a></p>
+            </div><!-- /.col-lg-4 -->
+            <div class="col-lg-4">
+                <div class="ratio ratio-1x1 bg-success overflow-hidden border border-primary border-2" style="border-radius: 50%; width: 140px; height:140px;">
+                    <img src="https://via.placeholder.com/400x400.png">
+                </div>                
+                <h2 class="fw-normal">Placeholder</h2>
+              <p>And lastly this, the third column of representative placeholder content.</p>
+              <p><a class="btn btn-secondary" href="#">View details »</a></p>
+            </div><!-- /.col-lg-4 -->
+          </div>
     </div>
+
+    <!--CONTACT-->
+    <div class="d-flex flex-column flex-md-row p-4 gap-4 py-md-5 align-items-center justify-content-center">
+        <h2 class="fw-normal">Contact Me</h2>
+        <div class="list-group">
+          <a href="https://www.linkedin.com/in/sean-yu-chang/" class="list-group-item list-group-item-action d-flex gap-3 py-3" aria-current="true">
+            <img src="linkedin.png" alt="twbs" width="32" height="32" class="rounded-circle flex-shrink-0">
+            <div class="d-flex gap-2 w-100 justify-content-between">
+              <div>
+                <h6 class="mb-0">/sean-yu-chang</h6>
+                <p class="mb-0 opacity-75">Linkedin Profile - for the professional stuff</p>
+              </div>
+            </div>
+          </a>
+          <a href="https://www.instagram.com/yaboichangster/" class="list-group-item list-group-item-action d-flex gap-3 py-3" aria-current="true">
+            <img src="instagram.png" alt="twbs" width="32" height="32" class="rounded-circle flex-shrink-0">
+            <div class="d-flex gap-2 w-100 justify-content-between">
+              <div>
+                <h6 class="mb-0">@yaboichangster</h6>
+                <p class="mb-0 opacity-75">Instagram Page - for the artsy and life stuff</p>
+              </div>
+            </div>
+          </a>
+          <a href="schang1661@gmail.com" class="list-group-item list-group-item-action d-flex gap-3 py-3" aria-current="true">
+            <img src="mail.jpeg" alt="twbs" width="32" height="32" class="rounded-circle flex-shrink-0">
+            <div class="d-flex gap-2 w-100 justify-content-between">
+              <div>
+                <h6 class="mb-0">schang1661@gmail.com</h6>
+                <p class="mb-0 opacity-75">Email - for the seriously professional stuff</p>
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
 
     <!--FOOTER-->
     <div class="container">
@@ -142,7 +229,31 @@
       
           <ul class="nav col-md-4 justify-content-end">
             <li class="nav-item"><a href="/index.html" class="nav-link px-2 text-body-secondary">Home</a></li>
-            <li class="nav-item"><a href="https://magist.gis.ucla.edu/" class="nav-link px-2 text-body-secondary">UCLA MAGIST</a></li>
+            <li class="nav-item"><a href="/about.html" class="nav-link px-2 text-body-secondary">About</a></li>
           </ul>
         </footer>
     </div>
+
+    <script>
+        const symbols = ['<mark>Hello! Thank you for visiting!</mark>', '<mark>哈囉, 感謝您的瀏覽</mark>', '<mark>您好，谢谢您的垂阅</mark>', '<mark>こんにちは、読んでいただきありがとうございます</mark>'];
+        let count = 0;
+        const element = document.getElementById("welcome");
+        const iteration = () => {
+        element.innerHTML = symbols[parseInt(count / 2, 10) % symbols.length];
+        if (count % 2 !== 0) {
+            element.classList.add("out");
+        } else {
+            element.classList.remove("out");
+        }
+        count++;
+
+        // if you're affraid the code could run for so long that it could fail,
+        // 6 is enough (number of elems * 2)
+        if (count === symbols.length * 2) {
+            count = 0;
+        }
+        };
+        let inthandle = setInterval(iteration, 2000);
+        iteration();
+    </script>
+    </html>
